@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:xml-module="http://www.mulesoft.org/schema/mule/xml-module"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/xml-module http://www.mulesoft.org/schema/mule/xml-module/current/mule-xml-module.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<flow name="reading-xml-file-flow" doc:id="7523575f-4398-4abe-aad2-c9baed9f5b59" >
+		<http:listener doc:name="reading-xml-file-api-v1" doc:id="4824a519-9a3e-42fe-8953-b22cc1b408c6" config-ref="HTTP_Listener_config" path="/reading-xml-file-api-v1"/>
+		<file:read doc:name="Read" doc:id="0b50fc93-005b-483e-bec9-5ac0b922ea57" path="C:\Users\Avinash\Desktop\names1.xml" outputMimeType="application/xml"/>
+		<error-handler ref="global-error-handler" />
+	</flow>
+	<flow name="write-csv-file-flow" doc:id="db43ac4e-7a16-407f-89e8-a54e1403654f" >
+		<http:listener doc:name="/write-csv-file-app-v1" doc:id="743e71fd-efe7-460f-b429-7b8b63fc08e7" config-ref="HTTP_Listener_config" path="/write-csv-file-app-v1"/>
+		<file:write doc:name="Write" doc:id="59b226fc-3e36-439c-887f-25a6574b0bdb" path="C:\Users\Avinash\Desktop\names.csv."/>
+		<error-handler ref="global-error-handler" />
+	</flow>
+	<flow name="xml-validator-flow" doc:id="8c08ca09-2b94-48c6-baab-edb396dbafe2" >
+		<http:listener doc:name="validate-xml-file" doc:id="e3454e2d-068b-475e-8f1e-9fc1991c68bf" config-ref="HTTP_Listener_config" path="/validate-xml-file" outputMimeType="application/xml"/>
+		<xml-module:validate-schema doc:name="Validate schema" doc:id="8c7ad9ad-57f6-458c-a529-ad97dc43a912" schemas="schemas\XMLSchema.xsd"/>
+		<error-handler ref="global-error-handler" />
+	</flow>
+</mule>

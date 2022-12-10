@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<error-handler name="global-error-handler" doc:id="ffc00f19-d4e8-4683-a042-714947ba8b4d" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="77810dec-8558-459a-b74e-7842ef3ecfe2" type="FILE:ACCESS_DENIED">
+			<ee:transform doc:name="Transform Message" doc:id="df148140-5a04-4f1a-ae13-cfaa0fa40044" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessage]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="42aa89d5-60b9-42a0-af94-d134a7cffebf" type="FILE:CONNECTIVITY">
+			<ee:transform doc:name="Transform Message" doc:id="7f7ab12f-1cf6-46bd-be5f-e59343bddb60" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessage]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="fa100339-794e-4acc-87ac-60494284e2b2" type="FILE:FILE_LOCK">
+			<ee:transform doc:name="Transform Message" doc:id="40d906f0-e213-4a4a-9da8-2f215569c343">
+				<ee:message>
+					<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessage]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="b6c0a76c-db2d-4b5a-8a87-e0b5749680a7" type="FILE:ILLEGAL_PATH">
+			<ee:transform doc:name="Transform Message" doc:id="19fddb0e-d9b9-4811-8214-d8db99740ed6" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessage]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="a4a5a61d-a65d-484d-8a6d-77879b727d4c" when="FILE:RETRY_EXHAUSTED">
+			<ee:transform doc:name="Transform Message" doc:id="f7450334-7acb-4bb1-817e-ce4a42c036c8" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessage]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="aaa4e9c7-8907-4919-be7c-e32d2d7a130a" type="XML-MODULE:INVALID_INPUT_XML">
+			<ee:transform doc:name="Transform Message" doc:id="5144ab7b-2021-4208-ac85-f6b744778351" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessage]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="516ac6fb-8bfa-407b-817e-9cde26c4d16a" type=", XML-MODULE:INVALID_SCHEMA, XML-MODULE:SCHEMA_NOT_FOUND">
+			<ee:transform doc:name="Transform Message" doc:id="bb3fadeb-cfc4-49ef-bb94-08d52e5ec38a" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessage]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="1e510134-6ebc-48bd-9915-1e9b77a81479" type="XML-MODULE:SCHEMA_NOT_HONOURED">
+			<ee:transform doc:name="Transform Message" doc:id="1ecc7883-223d-446b-bdc6-ce8fb256895e" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessage]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="f38aeb99-8259-4565-8db8-310faa3bb8c6" type=" XML-MODULE:TRANSFORMATION">
+			<ee:transform doc:name="Transform Message" doc:id="3f3bd411-cb88-48b9-8b77-c5e1b8b81f92" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessageload]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="c08db335-b115-4d57-b481-d407fbeed63e" type="ANY">
+			<ee:transform doc:name="Transform Message" doc:id="bc567e0a-3f7f-444c-87ac-f1dbc890a63c" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+error.errorMessaged]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+	</error-handler>
+</mule>
